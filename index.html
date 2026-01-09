@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Good Behavior - Dave Hawkins</title>
+    <meta name="description" content="Good Behavior by Dave Hawkins. Stream on Bandcamp, Spotify, Apple Music, and YouTube Music.">
+    <meta name="keywords" content="Good Behavior, Dave Hawkins, indie music, singer-songwriter, alternative, dark, atmospheric, Bandcamp, streaming">
+    <meta name="author" content="Dave Hawkins">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://goodbehavior.iamdavehawkins.com/">
+    <meta property="og:title" content="Good Behavior - Dave Hawkins">
+    <meta property="og:description" content="Good Behavior by Dave Hawkins. Stream on all platforms.">
+    <meta property="og:image" content="https://goodbehavior.iamdavehawkins.com/Good Behavior - Album Cover.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://goodbehavior.iamdavehawkins.com/">
+    <meta property="twitter:title" content="Good Behavior - Dave Hawkins">
+    <meta property="twitter:description" content="Good Behavior by Dave Hawkins.">
+    <meta property="twitter:image" content="https://goodbehavior.iamdavehawkins.com/Good Behavior - Album Cover.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://goodbehavior.iamdavehawkins.com/">
+    
+    <link rel="icon" href="Good Behavior - Album Cover.png" type="image/png">
+    <style>
+        :root {
+            --color-blood: #8B0000;
+            --color-rust: #6B2020;
+            --color-void: #0a0a0a;
+            --color-abyss: #111111;
+            --color-bone: #E8E4E0;
+            --color-steel: #4a4a4a;
+            --color-warning: #CC3333;
+            --color-accent: #D8A34A;
+        }
+        
+        @font-face {
+            font-family: 'Degular Text';
+            src: url('../fonts/DegularText-Regular.woff2') format('woff2'),
+                 url('https://cdn.iamdavehawkins.com/DegularText-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Compadre Extended';
+            src: url('../fonts/Compadre-Extended.woff2') format('woff2'),
+                 url('https://cdn.iamdavehawkins.com/Compadre-Extended.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Vulf Mono';
+            src: url('../fonts/Vulf_Mono-Light_Italic_web.woff2') format('woff2'),
+                 url('https://cdn.iamdavehawkins.com/Vulf_Mono-Light_Italic_web.woff2') format('woff2');
+            font-weight: 300;
+            font-style: italic;
+            font-display: swap;
+        }
+        
+        @font-face {
+            font-family: 'Coniferous';
+            src: url('../fonts/Coniferous-Regular.woff2') format('woff2'),
+                 url('https://cdn.iamdavehawkins.com/Coniferous-Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        *, *::before, *::after { box-sizing: border-box; }
+        
+        html {
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: 'Degular Text', Georgia, serif;
+            background-color: var(--color-void);
+            color: var(--color-bone);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Noise texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        /* Subtle vignette */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(0,0,0,0.6) 100%);
+            pointer-events: none;
+            z-index: 999;
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 16px;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+            position: relative;
+        }
+        
+        /* Blood drip line */
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                var(--color-blood) 20%,
+                var(--color-warning) 50%,
+                var(--color-blood) 80%,
+                transparent 100%);
+            opacity: 0.6;
+        }
+        
+        .album-art-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+        
+        .album-art {
+            width: 280px;
+            height: 280px;
+            border-radius: 2px;
+            box-shadow: 
+                0 0 0 1px var(--color-blood),
+                0 0 40px rgba(139, 0, 0, 0.3),
+                0 20px 60px rgba(0, 0, 0, 0.8);
+            display: block;
+            filter: saturate(0.9);
+            transition: filter 0.3s ease;
+        }
+        
+        .album-art:hover {
+            filter: saturate(1.1);
+        }
+        
+        /* Danger pulse */
+        @keyframes dangerPulse {
+            0%, 100% { 
+                box-shadow: 0 0 0 0 rgba(139, 0, 0, 0);
+            }
+            50% { 
+                box-shadow: 0 0 0 8px rgba(139, 0, 0, 0.15);
+            }
+        }
+        
+        .album-art-container::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border: 1px solid var(--color-blood);
+            opacity: 0.4;
+            animation: dangerPulse 3s ease-in-out infinite;
+        }
+        
+        h1 {
+            font-family: 'Compadre Extended', Georgia, serif;
+            font-size: 2.5em;
+            margin: 16px 0 8px;
+            letter-spacing: 4px;
+            color: var(--color-bone);
+            text-transform: uppercase;
+            text-shadow: 0 0 30px rgba(139, 0, 0, 0.4);
+        }
+        
+        .subtitle {
+            font-family: 'Degular Text', Georgia, serif;
+            font-size: 1.1em;
+            color: var(--color-steel);
+            font-weight: normal;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        
+        .treatment-label {
+            font-family: 'Vulf Mono', 'Courier New', monospace;
+            font-size: 0.7em;
+            color: var(--color-warning);
+            font-style: italic;
+            letter-spacing: 3px;
+            text-transform: lowercase;
+            opacity: 0.8;
+        }
+        
+        /* Sections */
+        .section {
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(180deg, 
+                rgba(107, 32, 32, 0.08) 0%, 
+                rgba(10, 10, 10, 0.9) 100%);
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            border-radius: 2px;
+            position: relative;
+        }
+        
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--color-blood), transparent);
+            opacity: 0.5;
+        }
+        
+        .section h2 {
+            font-family: 'Degular Text', Georgia, serif;
+            font-size: 1.2em;
+            color: var(--color-warning);
+            border-bottom: 1px solid rgba(139, 0, 0, 0.3);
+            padding-bottom: 8px;
+            margin: 0 0 16px 0;
+            letter-spacing: 1px;
+            text-transform: lowercase;
+        }
+        
+        /* Streaming Links */
+        .stream-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .stream-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 10px;
+            background: var(--color-rust);
+            color: var(--color-bone);
+            text-decoration: none;
+            border-radius: 2px;
+            border: 1px solid rgba(139, 0, 0, 0.5);
+            transition: all 0.2s ease;
+            font-family: 'Degular Text', Georgia, serif;
+            font-size: 0.85em;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            min-height: 80px;
+        }
+        
+        .stream-link:hover {
+            background: var(--color-blood);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(139, 0, 0, 0.5);
+            border-color: var(--color-warning);
+        }
+        
+        .stream-link:focus-visible {
+            outline: 2px solid var(--color-warning);
+            outline-offset: 2px;
+        }
+        
+        .stream-link svg {
+            width: 28px;
+            height: 28px;
+            fill: currentColor;
+            margin-bottom: 6px;
+        }
+        
+        /* Bandcamp Embed */
+        .bandcamp-embed {
+            margin: 16px 0;
+            text-align: center;
+        }
+        
+        .bandcamp-embed iframe {
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            border-radius: 2px;
+            max-width: 100%;
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, 
+                rgba(107, 32, 32, 0.2) 0%, 
+                rgba(17, 17, 17, 0.95) 100%);
+            border: 1px solid rgba(139, 0, 0, 0.4);
+        }
+        
+        .newsletter h3 {
+            font-family: 'Degular Text', Georgia, serif;
+            color: var(--color-bone);
+            margin: 0 0 8px 0;
+            font-size: 1.1em;
+            letter-spacing: 0.5px;
+        }
+        
+        .newsletter p {
+            font-family: 'Vulf Mono', 'Courier New', monospace;
+            font-size: 0.8em;
+            color: var(--color-steel);
+            margin: 0 0 16px 0;
+            font-style: italic;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .newsletter input[type="email"] {
+            padding: 12px 14px;
+            border: 1px solid rgba(139, 0, 0, 0.4);
+            border-radius: 2px;
+            font-size: 16px;
+            width: 100%;
+            font-family: 'Degular Text', Georgia, serif;
+            background: var(--color-abyss);
+            color: var(--color-bone);
+        }
+        
+        .newsletter input[type="email"]::placeholder {
+            color: var(--color-steel);
+        }
+        
+        .newsletter input[type="email"]:focus-visible {
+            outline: 2px solid var(--color-warning);
+            outline-offset: 1px;
+        }
+        
+        .newsletter input[type="submit"] {
+            padding: 12px 20px;
+            background: var(--color-rust);
+            color: var(--color-bone);
+            border: 1px solid var(--color-blood);
+            border-radius: 2px;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Degular Text', Georgia, serif;
+            transition: all 0.2s ease;
+            letter-spacing: 0.5px;
+        }
+        
+        .newsletter input[type="submit"]:hover {
+            background: var(--color-blood);
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.4);
+        }
+        
+        .newsletter input[type="submit"]:focus-visible {
+            outline: 2px solid var(--color-warning);
+            outline-offset: 2px;
+        }
+        
+        /* Lyrics Section */
+        .lyrics-section {
+            background: linear-gradient(180deg, 
+                rgba(10, 10, 10, 0.95) 0%, 
+                rgba(107, 32, 32, 0.1) 100%);
+            border: 1px solid rgba(139, 0, 0, 0.25);
+        }
+        
+        .lyrics-content {
+            font-family: 'Degular Text', Georgia, serif;
+            font-size: 0.95em;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .lyrics-verse {
+            margin: 20px 0;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 2px solid var(--color-rust);
+            border-radius: 2px;
+            color: rgba(232, 228, 224, 0.85);
+        }
+        
+        .lyrics-chorus {
+            font-family: 'Coniferous', Georgia, serif;
+            font-size: 1.1em;
+            font-style: italic;
+            color: var(--color-warning);
+            margin: 24px 0;
+            padding: 20px;
+            background: rgba(139, 0, 0, 0.1);
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            border-radius: 2px;
+            text-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
+        }
+        
+        .lyrics-bridge {
+            font-family: 'Vulf Mono', 'Courier New', monospace;
+            font-size: 0.85em;
+            font-style: italic;
+            color: var(--color-bone);
+            margin: 24px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px dashed rgba(139, 0, 0, 0.4);
+            border-radius: 2px;
+        }
+        
+        /* Footer */
+        footer {
+            font-family: 'Vulf Mono', 'Courier New', monospace;
+            font-size: 0.8em;
+            font-style: italic;
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px 0;
+            border-top: 1px solid rgba(139, 0, 0, 0.3);
+            color: var(--color-steel);
+        }
+        
+        footer a {
+            color: var(--color-warning);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        footer a:hover {
+            color: var(--color-bone);
+        }
+        
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .album-art-container::before {
+                animation: none;
+            }
+            .album-art {
+                transition: none;
+            }
+        }
+        
+        /* Tablet+ */
+        @media (min-width: 480px) {
+            .content {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 3.5em;
+            }
+            
+            .album-art {
+                width: 320px;
+                height: 320px;
+            }
+            
+            .stream-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 12px;
+            }
+            
+            .stream-link {
+                min-height: 90px;
+                font-size: 0.9em;
+            }
+            
+            .stream-link svg {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .form-group {
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .newsletter input[type="email"] {
+                width: auto;
+                min-width: 280px;
+            }
+            
+            .newsletter input[type="submit"] {
+                width: auto;
+            }
+        }
+        
+        /* Desktop */
+        @media (min-width: 768px) {
+            header {
+                padding: 60px 0 40px;
+            }
+            
+            h1 {
+                font-size: 4em;
+                letter-spacing: 6px;
+            }
+            
+            .album-art {
+                width: 350px;
+                height: 350px;
+            }
+            
+            .section {
+                padding: 24px;
+            }
+            
+            .lyrics-content {
+                font-size: 1.05em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <header>
+            <div class="album-art-container">
+                <img src="Good Behavior - Album Cover.png" alt="Good Behavior Album Art" class="album-art">
+            </div>
+            <h1>Good Behavior</h1>
+            <p class="subtitle">Dave Hawkins</p>
+            <p class="treatment-label">we know what you did</p>
+        </header>
+
+        <section class="section">
+            <h2>listen now</h2>
+            <div class="bandcamp-embed">
+                <iframe style="border: 0; width: 100%; height: 42px;" src="https://bandcamp.com/EmbeddedPlayer/album=4087394551/size=small/bgcol=333333/linkcol=e32c14/track=3818408768/transparent=true/" seamless><a href="https://iamdavehawkins.bandcamp.com/album/half-alive-ep">Half Alive EP by Dave Hawkins</a></iframe>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>stream</h2>
+            <div class="stream-grid">
+                <a href="https://iamdavehawkins.bandcamp.com/track/good-behavior" class="stream-link" target="_blank" rel="noopener" title="Bandcamp">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 18.75l7.437-13.5H24l-7.438 13.5H0z"/>
+                    </svg>
+                    Bandcamp
+                </a>
+                <a href="https://open.spotify.com/track/6sYsID88QJ3QGaB5hRYF5e?si=34fa943bda8746f4" class="stream-link" target="_blank" rel="noopener" title="Spotify">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
+                        <path d="M248 8C111.1 8 0 119.1 0 256s111.1 248 248 248 248-111.1 248-248S384.9 8 248 8zm100.7 364.9c-4.2 0-6.8-1.3-10.7-3.6-62.4-37.6-135-39.2-206.7-24.5-3.9 1-9 2.6-11.9 2.6-9.7 0-15.8-7.7-15.8-15.8 0-10.3 6.1-15.2 13.6-16.8 81.9-18.1 165.6-16.5 237 30.6 6.1 3.9 9.7 7.4 9.7 16.5s-7.1 15.4-15.2 15.4zm26.9-65.6c-5.2 0-8.7-2.3-12.3-4.2-62.5-37-155.7-51.9-238.6-29.4-4.8 1.3-7.4 2.6-11.9 2.6-10.7 0-19.4-8.7-19.4-19.4s5.2-17.8 15.5-20.7c27.8-7.8 56.2-13.6 97.8-13.6 64.9 0 127.6 16.1 177 45.5 8.1 4.8 11.3 11 11.3 19.7-.1 10.8-8.5 19.5-19.4 19.5zm31-76.2c-5.2 0-8.4-1.3-12.9-3.9-71.2-42.5-198.5-52.7-280.9-29.7-3.6 1-8.1 2.6-12.9 2.6-13.2 0-23.3-10.3-23.3-23.6 0-13.6 8.4-21.3 17.4-23.9 35.2-10.3 74.6-15.2 117.5-15.2 73 0 149.5 15.2 205.4 47.8 7.8 4.5 12.9 10.7 12.9 22.6 0 13.6-11 23.3-23.2 23.3z"/>
+                    </svg>
+                    Spotify
+                </a>
+                <a href="https://music.apple.com/us/song/good-behavior/1848643303" class="stream-link" target="_blank" rel="noopener" title="Apple Music">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                        <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/>
+                    </svg>
+                    Apple Music
+                </a>
+                <a href="https://music.youtube.com/watch?v=z6nWIAXLjpc" class="stream-link" target="_blank" rel="noopener" title="YouTube Music">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                        <path d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"/>
+                    </svg>
+                    YouTube Music
+                </a>
+            </div>
+        </section>
+
+        <section class="section newsletter">
+            <form action="https://buttondown.com/api/emails/embed-subscribe/iamdavehawkins" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.com/iamdavehawkins', 'popupwindow')" class="embeddable-buttondown-form">
+                <h3>email list</h3>
+                <p>new releases + occasional musings</p>
+                <div class="form-group">
+                    <input type="email" name="email" id="bd-email" placeholder="your@email.com" required />
+                    <input type="hidden" value="1" name="embed" />
+                    <input type="submit" value="Subscribe" />
+                </div>
+            </form>
+        </section>
+
+        <section class="section lyrics-section">
+            <h2>from the song</h2>
+            <div class="lyrics-content">
+                <div class="lyrics-verse">
+                    she blew you kisses from the back seat as she pulled away<br>
+                    she sank into the leather like she just got off the stage<br>
+                    she threw her head back to the laugh track and the disarray
+                </div>
+                
+                <div class="lyrics-verse">
+                    she had that cold cold steel hid like a viper in the hay<br>
+                    she walked so slow that noone noticed holsters on her legs<br>
+                    her eyes wore thunder like a zeus on someone's judgement day
+                </div>
+                
+                <div class="lyrics-chorus">
+                    we know what you did, and what you deserve<br>
+                    we know that you hid, who you really were<br>
+                    we know we were kids, when you did your worst<br>
+                    we know and we're comin for ya, comin for ya
+                </div>
+                
+                <div class="lyrics-bridge">
+                    she had that good behavior now that she turned off the lights<br>
+                    she had that good behavior not that she put up a fight<br>
+                    she had that good behavior now they argue wrong or right
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; <script>document.write(new Date().getFullYear());</script> Dave Hawkins | <a href="https://links.iamdavehawkins.com">iamdavehawkins.com</a></p>
+        </footer>
+    </div>
+</body>
+</html>
